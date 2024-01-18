@@ -17,8 +17,6 @@ public partial class MainPage : ContentPage
 		_tarefaServico = new DatabaseServico<Tarefa>(Db.DB_PATH);
 
         NavigateToDetailCommand = new Command<Tarefa>(async (tarefa) => await NavigateToDetail(tarefa));
-
-		CarregarTarefas();
 	}
 
 	protected override void OnAppearing()
@@ -37,7 +35,7 @@ public partial class MainPage : ContentPage
 		CardBacklog.ItemsSource = await _tarefaServico.TodosFilterAsync().Where(t => t.Status == Enums.Status.Backlog).ToListAsync();
 		CardAnalise.ItemsSource = await _tarefaServico.TodosFilterAsync().Where(t => t.Status == Enums.Status.Analise).ToListAsync();
 		CardParaFazer.ItemsSource = await _tarefaServico.TodosFilterAsync().Where(t => t.Status == Enums.Status.ParaFazer).ToListAsync();
-		CardFazendo.ItemsSource = await _tarefaServico.TodosFilterAsync().Where(t => t.Status == Enums.Status.Desenvolvimento).ToListAsync();
+		CardDesenvolvimento.ItemsSource = await _tarefaServico.TodosFilterAsync().Where(t => t.Status == Enums.Status.Desenvolvimento).ToListAsync();
 		CardFeito.ItemsSource = await _tarefaServico.TodosFilterAsync().Where(t => t.Status == Enums.Status.Feito).ToListAsync();
 	}
 

@@ -156,8 +156,8 @@
                 <Frame Style="{StaticResource FrameCartaoStyle}">
                     <StackLayout>
                         <!-- Título da Coluna -->
-                        <Label Text="Fazendo" Style="{StaticResource LabelCartaoStyle}" />
-                        <CollectionView x:Name="CardFazendo">
+                        <Label Text="Desenvolvimento" Style="{StaticResource LabelCartaoStyle}" />
+                        <CollectionView x:Name="CardDesenvolvimento">
                             <!-- Template para itens -->
                             <CollectionView.ItemTemplate>
                                 <DataTemplate>

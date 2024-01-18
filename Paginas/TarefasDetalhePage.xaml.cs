@@ -22,11 +22,28 @@ public partial class TarefasDetalhePage : ContentPage
 		Tarefa = tarefa;
 
         UsuarioPicker.ItemsSource = UsuariosServico.Instancia().Todos();
+		BindingContext = this;
+	}
 
-		CarregarComentarios();
+
+	protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        CarregarTarefa();
+        CarregarComentarios();
 		CarregarFotosAnexos();
 		CarregarLocalizacoesAnexos();
-		BindingContext = this;
+    }
+
+	public async void CarregarTarefa()
+	{
+        Tarefa = await _tarefaServico.TodosFilterAsync().Where(c => c.Id == Tarefa.Id).FirstOrDefaultAsync();
+		LabelTitulo.Text = Tarefa.Titulo;
+		LabelNomeUsuario.Text = Tarefa.NomeUsuario;
+		LabelDataCriacao.Text = Tarefa.DataCriacao.ToString();
+		LabelDataAtualizacao.Text =  Tarefa.DataAtualizacao.ToString();
+		LabelStatus.Text = Tarefa.Status.ToString();
+		LabelDescricao.Text = Tarefa.Descricao;
 	}
 
 	public async void CarregarComentarios()

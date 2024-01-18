@@ -1,4 +1,5 @@
 using SQLite;
+using Tarefas.Enums;
 
 namespace Tarefas.Servicos;
 
@@ -30,6 +31,11 @@ public class DatabaseServico<T> where T : new()
     public Task<List<T>> TodosAsync()
     {
         return _database.Table<T>().ToListAsync();
+    }
+
+    public AsyncTableQuery<T> TodosFilterAsync()
+    {
+        return _database.Table<T>();
     }
 
     public Task<int> QuantidadeAsync()

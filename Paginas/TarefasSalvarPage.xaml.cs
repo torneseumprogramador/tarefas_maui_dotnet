@@ -8,22 +8,32 @@ namespace Tarefas.Paginas;
 public partial class TarefasSalvarPage : ContentPage
 {
 	DatabaseServico<Tarefa> _tarefaServico;
-	public Tarefa Tarefa { get; set; }
+	Tarefa _tarefa = null;
 
-	public TarefasSalvarPage(Tarefa tarefa = null)
+	public TarefasSalvarPage(Tarefa tarefa)
 	{
+		var status = tarefa.Status;
+		_tarefa = tarefa;
+
 		InitializeComponent();
 
 		_tarefaServico = new DatabaseServico<Tarefa>(Db.DB_PATH);
 
-		Tarefa = tarefa ?? new Tarefa();
-        BindingContext = tarefa;
+        BindingContext = _tarefa;
 
 		StatusPicker.ItemsSource = Enum.GetValues(typeof(Status)).Cast<Status>().ToList();
         UsuarioPicker.ItemsSource = UsuariosServico.Instancia().Todos();
 
-		StatusPicker.SelectedItem = Tarefa.Status ?? Status.Backlog;
-    	UsuarioPicker.SelectedItem = Tarefa.Usuario;
+		StatusPicker.SelectedItem = status;
+    	UsuarioPicker.SelectedItem = _tarefa.Usuario;
+
+		this.Appearing += OnPageAppearing;
+	}
+
+	private async void OnPageAppearing(object sender, EventArgs e)
+	{
+		await Task.Delay(100);
+		TituloEntry.Focus();
 	}
 
 	private async void OnSaveClicked(object sender, EventArgs e)
@@ -35,29 +45,29 @@ public partial class TarefasSalvarPage : ContentPage
 			return;
 		}
 
-		Tarefa.Titulo = TituloEntry.Text;
-        Tarefa.Descricao = DescricaoEditor.Text;
+		_tarefa.Titulo = TituloEntry.Text;
+        _tarefa.Descricao = DescricaoEditor.Text;
 
 		if(StatusPicker.SelectedItem != null)
-        	Tarefa.Status = (Status)StatusPicker.SelectedItem;
+        	_tarefa.Status = (Status)StatusPicker.SelectedItem;
 		else
-        	Tarefa.Status = Status.Backlog;
+        	_tarefa.Status = Status.Backlog;
 
 		if(UsuarioPicker.SelectedItem != null)
-        	Tarefa.UsuarioId = ((Usuario)UsuarioPicker.SelectedItem).Id;
+        	_tarefa.UsuarioId = ((Usuario)UsuarioPicker.SelectedItem).Id;
 
-		if(Tarefa.Id == 0)
-			await _tarefaServico.IncluirAsync(Tarefa);
+		if(_tarefa.Id == 0)
+			await _tarefaServico.IncluirAsync(_tarefa);
 		else
 		{
-			Tarefa.DataAtualizacao = DateTime.Now;
-			await _tarefaServico.AlterarAsync(Tarefa);
+			_tarefa.DataAtualizacao = DateTime.Now;
+			await _tarefaServico.AlterarAsync(_tarefa);
 		}
 
         await Navigation.PopAsync();
     }
 
-	private async void VoltarClicked(object sender, EventArgs e)
+	private async void OnVoltarClicked(object sender, EventArgs e)
     {
         await Navigation.PopAsync();
     }

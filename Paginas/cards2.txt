@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Tarefas.Paginas.MainPage">
+
+
+     <!-- Definição dos estilos -->
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="FrameCartaoStyle" TargetType="Frame">
+                <Setter Property="BackgroundColor" Value="LightGray"/>
+                <Setter Property="Padding" Value="10"/>
+                <Setter Property="WidthRequest" Value="200"/>
+                <Setter Property="Margin" Value="10"/>
+                <Setter Property="CornerRadius" Value="10"/>
+                <Setter Property="HasShadow" Value="True"/>
+            </Style>
+            <Style x:Key="LabelCartaoStyle" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="FontSize" Value="Large"/>
+                <Setter Property="HorizontalTextAlignment" Value="Center"/>
+                <Setter Property="VerticalOptions" Value="Center"/>
+            </Style>
+            <Style x:Key="FrameInternoCartaoStyle" TargetType="Frame">
+                <Setter Property="BackgroundColor" Value="White"/>
+                <Setter Property="Padding" Value="10"/>
+                <Setter Property="Margin" Value="5"/>
+                <Setter Property="CornerRadius" Value="10"/>
+                <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
+                <Setter Property="HasShadow" Value="True"/>
+            </Style>
+            <Style x:Key="StackLayoutLabel" TargetType="Label">
+                <Setter Property="Padding" Value="5"/>
+                <Setter Property="WidthRequest" Value="200"/>
+                <Setter Property="HorizontalOptions" Value="Start"/>
+                <Setter Property="LineBreakMode" Value="TailTruncation"/>
+            </Style>
+
+            <Style x:Key="StackLayoutButton" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="Purple"/>
+                <Setter Property="TextColor" Value="White"/>
+                <Setter Property="Margin" Value="5"/>
+                <Setter Property="CornerRadius" Value="20"/>
+                <Setter Property="HeightRequest" Value="40"/>
+                <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    
+    <ScrollView Orientation="Horizontal">
+        <HorizontalStackLayout Spacing="10">
+            <!-- Coluna Backlog -->
+            <VerticalStackLayout>
+                <Frame Style="{StaticResource FrameCartaoStyle}">
+                    <StackLayout>
+                        <!-- Título da Coluna -->
+                        <Label Text="Backlog" Style="{StaticResource LabelCartaoStyle}" />
+                        <CollectionView>
+                            <!-- Template para itens -->
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Frame Style="{StaticResource FrameInternoCartaoStyle}">
+                                        <StackLayout HorizontalOptions="FillAndExpand">
+                                            <!-- Título do cartão -->
+                                            <Label Text="{Binding .}" 
+                                                   Style="{StaticResource StackLayoutLabel}"/>
+                                        </StackLayout>
+                                    </Frame>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                            <!-- Dados fixos para o exemplo -->
+                            <CollectionView.ItemsSource>
+                                <x:Array Type="{x:Type x:String}">
+                                    <x:String>Lavar o carro</x:String>
+                                    <x:String>Banho no cachorro</x:String>
+                                </x:Array>
+                            </CollectionView.ItemsSource>
+                        </CollectionView>
+                        <!-- Botão de adição dentro do Frame -->
+                        <Button Text="+ Novo item"
+                                Clicked="NovoClicked"
+                                Style="{StaticResource StackLayoutButton}"/>
+                    </StackLayout>
+                </Frame>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout>
+                <Frame Style="{StaticResource FrameCartaoStyle}">
+                    <StackLayout>
+                        <!-- Título da Coluna -->
+                        <Label Text="Análise" Style="{StaticResource LabelCartaoStyle}" />
+                        <CollectionView>
+                            <!-- Template para itens -->
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Frame Style="{StaticResource FrameInternoCartaoStyle}">
+                                        <StackLayout HorizontalOptions="FillAndExpand">
+                                            <!-- Título do cartão -->
+                                            <Label Text="{Binding .}" 
+                                                   Style="{StaticResource StackLayoutLabel}"/>
+                                        </StackLayout>
+                                    </Frame>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                            <!-- Dados fixos para o exemplo -->
+                            <CollectionView.ItemsSource>
+                                <x:Array Type="{x:Type x:String}">
+                                    <x:String>Tarefa x</x:String>
+                                </x:Array>
+                            </CollectionView.ItemsSource>
+                        </CollectionView>
+                        <!-- Botão de adição dentro do Frame -->
+                        <Button Text="+ Novo item"
+                                Clicked="NovoClicked"
+                                Style="{StaticResource StackLayoutButton}"/>
+                    </StackLayout>
+                </Frame>
+            </VerticalStackLayout>
+
+
+            <VerticalStackLayout>
+                <Frame Style="{StaticResource FrameCartaoStyle}">
+                    <StackLayout>
+                        <!-- Título da Coluna -->
+                        <Label Text="Para Fazer" Style="{StaticResource LabelCartaoStyle}" />
+                        <CollectionView>
+                            <!-- Template para itens -->
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Frame Style="{StaticResource FrameInternoCartaoStyle}">
+                                        <StackLayout HorizontalOptions="FillAndExpand">
+                                            <!-- Título do cartão -->
+                                            <Label Text="{Binding .}" 
+                                                   Style="{StaticResource StackLayoutLabel}"/>
+                                        </StackLayout>
+                                    </Frame>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                            <!-- Dados fixos para o exemplo -->
+                            <CollectionView.ItemsSource>
+                                <x:Array Type="{x:Type x:String}">
+                                </x:Array>
+                            </CollectionView.ItemsSource>
+                        </CollectionView>
+                        <!-- Botão de adição dentro do Frame -->
+                        <Button Text="+ Novo item"
+                                Clicked="NovoClicked"
+                                Style="{StaticResource StackLayoutButton}"/>
+                    </StackLayout>
+                </Frame>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout>
+                <Frame Style="{StaticResource FrameCartaoStyle}">
+                    <StackLayout>
+                        <!-- Título da Coluna -->
+                        <Label Text="Fazendo" Style="{StaticResource LabelCartaoStyle}" />
+                        <CollectionView>
+                            <!-- Template para itens -->
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Frame Style="{StaticResource FrameInternoCartaoStyle}">
+                                        <StackLayout HorizontalOptions="FillAndExpand">
+                                            <!-- Título do cartão -->
+                                            <Label Text="{Binding .}" 
+                                                   Style="{StaticResource StackLayoutLabel}"/>
+                                        </StackLayout>
+                                    </Frame>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                            <!-- Dados fixos para o exemplo -->
+                            <CollectionView.ItemsSource>
+                                <x:Array Type="{x:Type x:String}">
+                                </x:Array>
+                            </CollectionView.ItemsSource>
+                        </CollectionView>
+                        <!-- Botão de adição dentro do Frame -->
+                        <Button Text="+ Novo item"
+                                Clicked="NovoClicked"
+                                Style="{StaticResource StackLayoutButton}"/>
+                    </StackLayout>
+                </Frame>
+            </VerticalStackLayout>
+
+
+            <VerticalStackLayout>
+                <Frame Style="{StaticResource FrameCartaoStyle}">
+                    <StackLayout>
+                        <!-- Título da Coluna -->
+                        <Label Text="Feito" Style="{StaticResource LabelCartaoStyle}" />
+                        <CollectionView>
+                            <!-- Template para itens -->
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Frame Style="{StaticResource FrameInternoCartaoStyle}">
+                                        <StackLayout HorizontalOptions="FillAndExpand">
+                                            <!-- Título do cartão -->
+                                            <Label Text="{Binding .}" 
+                                                   Style="{StaticResource StackLayoutLabel}"/>
+                                        </StackLayout>
+                                    </Frame>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                            <!-- Dados fixos para o exemplo -->
+                            <CollectionView.ItemsSource>
+                                <x:Array Type="{x:Type x:String}">
+                                </x:Array>
+                            </CollectionView.ItemsSource>
+                        </CollectionView>
+                        <!-- Botão de adição dentro do Frame -->
+                        <Button Text="+ Novo item"
+                                Clicked="NovoClicked"
+                                Style="{StaticResource StackLayoutButton}"/>
+                    </StackLayout>
+                </Frame>
+            </VerticalStackLayout>
+            
+        </HorizontalStackLayout>
+    </ScrollView>
+
+
+
+
+    <!--ScrollView>
+        <VerticalStackLayout
+            Padding="30,0"
+            Spacing="25">
+            <Image
+                Source="dotnet_bot.png"
+                HeightRequest="185"
+                Aspect="AspectFit"
+                SemanticProperties.Description="dot net bot in a race car number eight" />
+
+            <Label
+                Text="Olá alunos!"
+                Style="{StaticResource Headline}"
+                SemanticProperties.HeadingLevel="Level1" />
+
+            <Button Text="Novo" Clicked="NovoClicked" HorizontalOptions="Center"/>
+
+            <StackLayout>
+                <Grid Padding="5" 
+                    BackgroundColor="LightGray" 
+                    RowDefinitions="Auto" 
+                    ColumnDefinitions="0.1*, 0.3*, 0.2*, 0.2*, 0.2*">
+                    <Label Text="#" FontAttributes="Bold" Grid.Column="0" />
+                    <Label Text="Titulo" FontAttributes="Bold" Grid.Column="1" />
+                    <Label Text="Usuario" FontAttributes="Bold" Grid.Column="2" />
+                    <Label Text="Status" FontAttributes="Bold" Grid.Column="3" />
+                    <Label Text="Ações" FontAttributes="Bold" Grid.Column="4" />
+                </Grid>
+
+                <CollectionView x:Name="TarefasCollectionTable">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Padding="5" 
+                                RowDefinitions="Auto" 
+                                ColumnDefinitions="0.1*, 0.3*, 0.2*, 0.2*, 0.2*">
+                                <Label Text="{Binding Id}" Grid.Column="0" />
+                                <Label Text="{Binding Titulo}" Grid.Column="1" />
+                                <Label Text="{Binding NomeUsuario}" Grid.Column="2" />
+                                <Label Text="{Binding Status}" Grid.Column="3" />
+
+                                <Grid Grid.Column="4">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <Button Text="Ver" 
+                                            Command="{Binding Path=BindingContext.NavigateToDetailCommand, Source={x:Reference Name=TarefasCollectionTable}}"
+                                            CommandParameter="{Binding .}"
+                                            Grid.Row="0" />
+                                    <Button Text="Alterar" 
+                                            BackgroundColor="Yellow"
+                                            TextColor="Black"
+                                            Command="{Binding Path=BindingContext.NavigateToChangeCommand, Source={x:Reference Name=TarefasCollectionTable}}"
+                                            CommandParameter="{Binding .}"
+                                            Grid.Row="1" />
+                                    <Button Text="Excluir" 
+                                            BackgroundColor="Red"
+                                            TextColor="White"
+                                            Command="{Binding Path=BindingContext.DeleteCommand, Source={x:Reference Name=TarefasCollectionTable}}"
+                                            CommandParameter="{Binding .}"
+                                            Grid.Row="2" />
+                                </Grid>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+            </StackLayout>
+
+
+        </VerticalStackLayout>
+    </ScrollView-->
+
+</ContentPage>
